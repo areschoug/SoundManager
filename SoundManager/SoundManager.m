@@ -355,11 +355,13 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 + (SoundManager *)sharedManager
 {
     static SoundManager *sharedManager = nil;
-    if (sharedManager == nil)
-    {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
-    }
+    });
     return sharedManager;
+    
 }
 
 - (SoundManager *)init
